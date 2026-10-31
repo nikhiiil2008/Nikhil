@@ -5,16 +5,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Colorful Calculator</title>
-<style> <meta name="theme-color" content="#764ba2">
+<meta name="theme-color" content="#764ba2">
 <link rel="manifest" href="/Nikhil/manifest.webmanifest">
 <link rel="icon" href="/Nikhil/icon.svg">
-*{box-sizing:border-box}
+
+
+.lock-screen{
+ position:fixed;
+ inset:0;
+ z-index:9999;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ padding:20px;
+ background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);
+}
+.lock-card{
+ width:100%;
+ max-width:350px;
+ background:white;
+ padding:28px 22px;
+ border-radius:22px;
+ text-align:center;
+ box-shadow:0 15px 45px #25134b55;
+}
+.lock-card h2{color:#6639bb}
+.lock-card p{color:#555;line-height:1.5}
+.lock-card button{
+ width:100%;
+ padding:14px;
+ margin-top:10px;
+ border:0;
+ border-radius:12px;
+ font-size:16px;
+ font-weight:bold;
+ cursor:pointer;
+}
+.pay-btn{background:#16a34a;color:white}
+.demo-btn{background:#e9d5ff;color:#7028c8}<style>
 body{
  margin:0;padding:20px;min-height:100vh;
  display:flex;justify-content:center;align-items:center;
  font-family:Arial,sans-serif;
  background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);
 }
+ <div class="lock-screen" id="lockScreen">
+ <div class="lock-card">
+  <h2>🔒 Calculator Locked</h2>
+  <p>Calculator का Demo Access पाने के लिए नीचे बटन दबाएँ।</p>
+  <h2>₹49</h2>
+
+  <button class="pay-btn" onclick="payUPI()">
+   Pay ₹49 with UPI
+  </button>
+
+  <button class="demo-btn" onclick="demoUnlock()">
+   Demo Unlock (Testing Only)
+  </button>
+
+  <p style="font-size:11px">
+   Demo unlock असली भुगतान की पुष्टि नहीं करता।
+  </p>
+ </div>
+</div>
 .app{
  width:100%;max-width:390px;background:#fff;
  padding:20px;border-radius:25px;
@@ -267,7 +320,24 @@ document.addEventListener('keydown',e=>{
  }else if(e.key==='Escape'){
    clearAll();
  }
-});
+});function payUPI(){
+ const upi = 'nikhilgond8837@naviaxis';
+ const link = 'upi://pay?pa=' + encodeURIComponent(upi) +
+  '&pn=' + encodeURIComponent('Calculator Access') +
+  '&am=49&cu=INR' +
+  '&tn=' + encodeURIComponent('Calculator Access');
+
+ window.location.href = link;
+}
+
+function demoUnlock(){
+ localStorage.setItem('calculator_demo_unlocked','yes');
+ document.getElementById('lockScreen').style.display='none';
+}
+
+if(localStorage.getItem('calculator_demo_unlocked')==='yes'){
+ document.getElementById('lockScreen').style.display='none';
+ }
 </script>
 </body>
 </html>
