@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102b52"><meta name="description" content="Class 12 UP Board Science ke bilingual notes aur instant MCQ practice.">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg">
+<title>StudySprint — Class 12 Science</title>
+<style>
+:root{--navy:#102b52;--blue:#2563eb;--cyan:#e8f3ff;--ink:#17243a;--muted:#64748b;--line:#e4eaf2;--bg:#f5f8fc;--green:#16834a;--red:#c03939}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Devanagari",sans-serif}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+header{background:linear-gradient(135deg,#102b52,#1d4f91);color:white;padding:22px 18px 26px;border-radius:0 0 24px 24px}
+.top{max-width:850px;margin:auto}.brand{font-size:13px;opacity:.85;letter-spacing:.08em;font-weight:700}.hero{font-size:25px;font-weight:850;margin:8px 0 4px}.sub{font-size:14px;opacity:.88}.pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.pill{background:#ffffff1c;border:1px solid #ffffff38;border-radius:30px;padding:7px 11px;font-size:12px}
+main{max-width:850px;margin:auto;padding:16px 14px 40px}.section-title{font-size:18px;font-weight:800;margin:18px 2px 10px}.subjects{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.subject{border:1px solid var(--line);background:white;border-radius:15px;padding:13px 8px;text-align:left;color:var(--ink);box-shadow:0 2px 8px #18365a08}.subject.active{border:2px solid var(--blue);background:#eef5ff;padding:12px 7px}.subject b{display:block;font-size:14px}.subject span{font-size:11px;color:var(--muted)}
+.panel{background:white;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:12px;box-shadow:0 5px 18px #18365a08}.panelhead{display:flex;justify-content:space-between;gap:10px;align-items:center}.tag{font-size:11px;color:#1d4ed8;background:#eff6ff;padding:5px 9px;border-radius:20px;font-weight:700}.muted{color:var(--muted);font-size:13px}.tabs{display:flex;gap:8px;margin:13px 0}.tab{border:1px solid var(--line);background:white;border-radius:10px;padding:9px 13px;font-size:13px;color:var(--ink)}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}
+.note h3{font-size:16px;margin:6px 0 8px}.note p{font-size:14px;line-height:1.65;margin:8px 0}.note ul{padding-left:21px;margin:8px 0}.note li{font-size:14px;line-height:1.65;margin:5px 0}.note strong{color:#173e74}
+.qtop{display:flex;justify-content:space-between;align-items:center;gap:8px}.progress{height:7px;background:#edf1f6;border-radius:10px;overflow:hidden;margin:12px 0}.bar{height:100%;background:linear-gradient(90deg,#2563eb,#22a6b5);width:0%;transition:width .15s}
+.question{font-size:17px;font-weight:750;line-height:1.5;margin:15px 0}.opts{display:grid;gap:9px}.option{width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px 13px;font-size:14px;color:var(--ink);transition:background .12s,border-color .12s}.option:active{transform:scale(.995)}.option.correct{border-color:#1a9b58;background:#effbf4}.option.wrong{border-color:#d84b4b;background:#fff2f2}.option:disabled{cursor:default}.feedback{margin-top:11px;padding:11px 12px;border-radius:11px;font-size:13px;line-height:1.55;display:none}.feedback.show{display:block}.feedback.good{background:#effbf4;color:#146c3b}.feedback.bad{background:#fff2f2;color:#982e2e}
+.actions{display:flex;gap:9px;margin-top:14px}.primary,.secondary{border:0;border-radius:12px;padding:12px 15px;font-weight:750}.primary{background:var(--blue);color:white;flex:1}.secondary{background:#edf2f8;color:var(--navy)}.primary:disabled{opacity:.45;cursor:not-allowed}
+.score{text-align:center;padding:22px 10px}.score strong{display:block;font-size:34px;color:var(--blue)}.hidden{display:none!important}.footer{text-align:center;color:var(--muted);font-size:11px;line-height:1.6;padding:20px 8px}
+@media(min-width:650px){header{padding:30px 24px 34px}.hero{font-size:31px}main{padding-top:22px}.subjects{gap:12px}.subject{padding:16px}.subject.active{padding:15px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="brand">STUDYSPRINT • LEARN SMART</div><div class="hero">Class 12 Science, ab revision hoga easy.</div><div class="sub">UP Board • हिंदी + English • Notes + Instant MCQ Practice</div><div class="pillrow"><span class="pill">⚡ Fast quiz</span><span class="pill">📚 Chapter notes</span><span class="pill">📱 Mobile friendly</span></div></div></header>
+<main>
+<div class="section-title">अपना विषय चुनें / Choose subject</div>
+<div class="subjects" id="subjects">
+<button class="subject active" data-sub="biology"><b>🧬 Biology</b><span>जीव विज्ञान</span></button>
+<button class="subject" data-sub="physics"><b>⚡ Physics</b><span>भौतिक विज्ञान</span></button>
+<button class="subject" data-sub="chemistry"><b>🧪 Chemistry</b><span>रसायन विज्ञान</span></button>
+</div>
+<section class="panel">
+<div class="panelhead"><div><div class="muted">STUDY MATERIAL</div><b id="subjectTitle">Biology • जीव विज्ञान</b></div><span class="tag">REVISION NOTES</span></div>
+<div class="tabs"><button class="tab active" id="notesTab">Notes</button><button class="tab" id="quizTab">MCQ Quiz</button></div>
+<div id="notes" class="note"></div>
+<div id="quiz" class="hidden">
+<div class="qtop"><span class="tag" id="qCount">Question 1/5</span><span class="muted" id="qSubject">Biology</span></div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+<div class="question" id="question"></div><div class="opts" id="options"></div>
+<div class="feedback" id="feedback" aria-live="polite"></div>
+<div class="actions"><button class="secondary" id="restart">↻ Restart</button><button class="primary" id="next" disabled>Next question →</button></div>
+<div class="score hidden" id="score"></div>
+</div>
+</section>
+<div class="footer">यह एक independent revision project है, official UPMSP app नहीं। Notes संक्षिप्त अध्ययन-सहायता हैं; अंतिम तैयारी के लिए नवीनतम syllabus और prescribed textbook से मिलान करें।<br>Made for learners • StudySprint v1</div>
+</main>
+<script>
+const content={
+biology:{title:"Biology • जीव विज्ञान",chapter:"Chapter 1: Sexual Reproduction in Flowering Plants",intro:"पुष्पीय पौधों में लैंगिक जनन / Sexual reproduction in flowering plants",notes:[
+["फूल के मुख्य भाग / Main parts","फूल एक modified shoot है। इसके चार whorls हैं: calyx (बाह्यदल), corolla (पंखुड़ी), androecium (पुंकेसर) और gynoecium (स्त्रीकेसर)। Androecium male reproductive whorl और gynoecium female reproductive whorl है।"],
+["पुंकेसर / Stamen","एक stamen में filament और anther होते हैं। सामान्यतः anther bilobed और dithecous होता है। प्रत्येक anther में चार microsporangia होते हैं, जहाँ pollen grains बनते हैं।"],
+["परागकण / Pollen grain","Pollen grain की outer wall को exine और inner wall को intine कहते हैं। Exine sporopollenin से बनी होती है, जो अत्यंत resistant पदार्थ है।"],
+["बीजांड / Ovule","Ovule में integuments, nucellus और embryo sac होते हैं। सामान्य angiosperm embryo sac 7-celled और 8-nucleate होता है।"],
+["परागण / Pollination","Anther से stigma तक pollen का transfer pollination कहलाता है। इसके प्रकार: autogamy, geitonogamy और xenogamy।"],
+["निषेचन / Fertilisation","Pollen tube embryo sac तक male gametes पहुँचाती है। एक male gamete egg से मिलकर zygote बनाता है; दूसरा polar nuclei से मिलकर primary endosperm nucleus बनाता है। इसे double fertilisation कहते हैं।"],
+["बीज और फल / Seed and fruit","Fertilised ovule से seed और ovary से fruit बनता है। Zygote से embryo तथा primary endosperm cell से endosperm विकसित होता है।"]
+],questions:[
+["Anther में सामान्यतः कितने microsporangia होते हैं?","How many microsporangia are usually present in an anther?",["2","4","6","8"],1,"एक सामान्य bilobed anther में प्रत्येक lobe में दो microsporangia होते हैं।"],
+["Pollen grain की exine किससे बनी होती है?","The exine of a pollen grain is made of:",["Cellulose","Pectin","Sporopollenin","Lignin"],2,"Sporopollenin एक अत्यंत resistant जैविक पदार्थ है।"],
+["एक सामान्य angiosperm embryo sac कितने nucleate होता है?","A typical angiosperm embryo sac is:",["4-nucleate","6-nucleate","8-nucleate","16-nucleate"],2,"सामान्य embryo sac में 7 cells और 8 nuclei होते हैं।"],
+["Double fertilisation किस समूह की विशेषता है?","Double fertilisation is characteristic of:",["Algae","Bryophytes","Angiosperms","Fungi"],2,"दो fusion events एक ही embryo sac में होते हैं।"],
+["Fertilised ovule किसमें विकसित होता है?","A fertilised ovule develops into a:",["Fruit","Seed","Pericarp","Stigma"],1,"Ovule seed बनता है जबकि ovary फल में विकसित होती है।"]
+]},
+physics:{title:"Physics • भौतिक विज्ञान",chapter:"Chapter 1: Electric Charges and Fields",intro:"विद्युत आवेश एवं क्षेत्र / Electric Charges and Fields",notes:[
+["विद्युत आवेश / Electric charge","आवेश पदार्थ का मूल गुण है। इसके दो प्रकार हैं: positive और negative। समान आवेश repel तथा विपरीत आवेश attract करते हैं। SI unit coulomb (C) है।"],
+["आवेश का क्वांटीकरण / Quantisation","किसी वस्तु का आवेश q = ne होता है, जहाँ n पूर्णांक और e = 1.6 × 10⁻¹⁹ C मूल आवेश है।"],
+["कूलॉम का नियम / Coulomb’s law","दो point charges के बीच बल F = (1/4πε₀) |q₁q₂|/r² होता है। बल दूरी के वर्ग के व्युत्क्रमानुपाती है।"],
+["विद्युत क्षेत्र / Electric field","किसी बिंदु पर E = F/q₀। SI unit N/C या V/m है। Point charge के लिए E = (1/4πε₀) q/r²।"],
+["विद्युत फ्लक्स / Electric flux","Uniform field में समतल सतह के लिए Φ = EA cosθ। SI unit N m²/C है।"],
+["गाउस का नियम / Gauss’s law","किसी बंद सतह से कुल electric flux = enclosed charge/ε₀। यानी Φ = q enclosed/ε₀।"]
+],questions:[
+["Electric charge की SI unit क्या है?","What is the SI unit of electric charge?",["Ampere","Coulomb","Volt","Ohm"],1,"आवेश की इकाई का नाम एक वैज्ञानिक के नाम पर है।"],
+["मूल आवेश e का मान लगभग कितना है?","The magnitude of elementary charge is approximately:",["1.6 × 10⁻¹⁹ C","1.6 × 10⁻¹⁶ C","9.1 × 10⁻³¹ C","6.02 × 10²³ C"],0,"Electron और proton के आवेश का परिमाण समान होता है।"],
+["Coulomb बल दूरी r के किस घात पर निर्भर करता है?","Coulomb force depends on distance r as:",["r","1/r","1/r²","r²"],2,"दो point charges के बीच inverse-square law लागू होता है।"],
+["Electric field की SI unit कौन-सी है?","Which is an SI unit of electric field?",["N/C","C/N","J/C","C·m"],0,"Electric field = force per unit test charge।"],
+["Gauss के नियम में बंद सतह का कुल flux किसके अनुपाती है?","In Gauss’s law, total flux through a closed surface is proportional to:",["Total surface area","Enclosed charge","Radius only","External charge only"],1,"केवल बंद सतह के भीतर का कुल आवेश net flux तय करता है।"]
+]},
+chemistry:{title:"Chemistry • रसायन विज्ञान",chapter:"Chapter 1: Solutions",intro:"विलयन / Solutions",notes:[
+["विलयन / Solution","दो या अधिक पदार्थों का समांगी मिश्रण solution कहलाता है। अधिक मात्रा वाला घटक solvent और कम मात्रा वाला solute कहलाता है।"],
+["मोलरता / Molarity","Molarity (M) = solute के moles / solution का volume (litre)। तापमान बदलने पर volume बदल सकता है, इसलिए molarity बदल सकती है।"],
+["मोललता / Molality","Molality (m) = solute के moles / solvent का mass (kg)। यह तापमान पर निर्भर नहीं करती क्योंकि mass नहीं बदलता।"],
+["मोल अंश / Mole fraction","किसी घटक का mole fraction = उस घटक के moles / सभी घटकों के कुल moles। सभी घटकों के mole fractions का योग 1 होता है।"],
+["हेनरी का नियम / Henry’s law","स्थिर ताप पर liquid में gas की solubility, gas के partial pressure के समानुपाती होती है। p = Kₕx।"],
+["राउल्ट का नियम / Raoult’s law","आदर्श विलयन में किसी volatile component का partial vapour pressure = उसके mole fraction × pure component का vapour pressure।"]
+],questions:[
+["Molarity की इकाई क्या है?","What is the common unit of molarity?",["mol kg⁻¹","mol L⁻¹","kg mol⁻¹","g L⁻¹"],1,"Molarity में denominator solution का volume litre में होता है।"],
+["Molality किस पर आधारित होती है?","Molality is based on:",["Volume of solution","Mass of solvent","Mass of solution","Volume of solvent"],1,"Molality की परिभाषा में solvent का mass लिया जाता है।"],
+["Mole fraction की कोई इकाई होती है?","Does mole fraction have a unit?",["mol","Litre","No unit","kg"],2,"यह moles का ratio है, इसलिए dimensionless होता है।"],
+["Henry’s law किससे संबंधित है?","Henry’s law relates gas solubility to:",["Temperature only","Partial pressure of gas","Colour of solution","Molar mass only"],1,"स्थिर ताप पर gas का partial pressure बढ़ने से solubility बढ़ती है।"],
+["एक binary solution में दोनों mole fractions का योग कितना होता है?","The sum of mole fractions in a binary solution is:",["0","0.5","1","2"],2,"सभी components के mole fractions का योग हमेशा 1 होता है।"]
+]}
+};
+let subject="biology",mode="notes",index=0,answered=false,score=0;
+const $=id=>document.getElementById(id);
+function selectSubject(s){subject=s;index=0;score=0;answered=false;document.querySelectorAll(".subject").forEach(b=>b.classList.toggle("active",b.dataset.sub===s));$("subjectTitle").textContent=content[s].title;$("qSubject").textContent=content[s].title.split(" •")[0];renderNotes();renderQuiz();switchMode("notes")}
+function renderNotes(){const d=content[subject];$("notes").innerHTML='<div class="muted">'+d.intro+'</div><h3>'+d.chapter+'</h3>'+d.notes.map((n,i)=>'<p><strong>'+(i+1)+'. '+n[0]+'</strong><br>'+n[1]+'</p>').join("")}
+function switchMode(m){mode=m;$("notesTab").classList.toggle("active",m==="notes");$("quizTab").classList.toggle("active",m==="quiz");$("notes").classList.toggle("hidden",m!=="notes");$("quiz").classList.toggle("hidden",m!=="quiz");if(m==="quiz")renderQuiz()}
+function renderQuiz(){const qs=content[subject].questions;$("score").classList.add("hidden");$("qCount").textContent='Question '+(index+1)+'/'+qs.length;$("bar").style.width=(index/qs.length*100)+'%';$("question").textContent=qs[index][0]+'\n'+qs[index][1];$("options").innerHTML="";$("feedback").className="feedback";$("feedback").textContent="";$("next").disabled=true;$("next").textContent=index===qs.length-1?"See result →":"Next question →";answered=false;qs[index][2].forEach((op,i)=>{const b=document.createElement("button");b.className="option";b.textContent=String.fromCharCode(65+i)+". "+op;b.addEventListener("click",()=>answer(i));$("options").appendChild(b)})}
+function answer(i){if(answered)return;answered=true;const q=content[subject].questions[index],correct=i===q[3];if(correct)score++;[...$("options").children].forEach((b,j)=>{b.disabled=true;if(j===q[3])b.classList.add("correct");else if(j===i)b.classList.add("wrong")});$("feedback").textContent=(correct?"✓ सही उत्तर! ":"✕ सही उत्तर: "+q[2][q[3]]+". ")+q[4];$("feedback").className="feedback show "+(correct?"good":"bad");$("next").disabled=false;$("bar").style.width=((index+1)/content[subject].questions.length*100)+'%'}
+function nextQuestion(){if(!answered)return;if(index<content[subject].questions.length-1){index++;renderQuiz()}else{$("question").classList.add("hidden");$("options").classList.add("hidden");$("feedback").classList.add("hidden");$("qCount").textContent="Quiz complete";$("bar").style.width="100%";$("score").classList.remove("hidden");$("score").innerHTML='<strong>'+score+'/'+content[subject].questions.length+'</strong><div>आपका स्कोर / Your score</div><p class="muted">Practice makes progress. फिर से कोशिश करें!</p><button class="primary" id="again">Try again</button>';$("again").addEventListener("click",restartQuiz);$("next").classList.add("hidden")}}
+function restartQuiz(){index=0;score=0;$("question").classList.remove("hidden");$("options").classList.remove("hidden");$("feedback").classList.remove("hidden");$("next").classList.remove("hidden");renderQuiz()}
+document.querySelectorAll(".subject").forEach(b=>b.addEventListener("click",()=>selectSubject(b.dataset.sub)));
+$("notesTab").addEventListener("click",()=>switchMode("notes"));$("quizTab").addEventListener("click",()=>switchMode("quiz"));$("next").addEventListener("click",nextQuestion);$("restart").addEventListener("click",restartQuiz);
+renderNotes();renderQuiz();
+if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
+</script>
+</body></html>
