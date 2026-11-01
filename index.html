@@ -42,7 +42,7 @@ body.light{color-scheme:light;--bg:#eef0fa;--panel:#fff;--display:#f2f3fc;--text
 <footer class="foot"><span>Made with care ✦</span><span>Keyboard supported</span></footer>
 </section>
 </main>
-<div class="lock-screen" id="lockScreen"><div class="lock-card"><h2>🔒 Calculator Access</h2><p>Unlock the calculator using the available options.</p><div class="price">₹49</div><button class="pay-btn" id="payBtn">Pay ₹49 with UPI</button><button class="demo-btn" id="demoBtn">Try demo</button><p class="fine">Demo access is for testing only and does not confirm a real payment.</p></div></div>
+<div class="lock-screen" id="lockScreen"><div class="lock-card"><h2>🔒 Free demo complete</h2><p>You have used your 5 free calculations.</p><div class="price">₹49</div><p>Pay using Google Pay, PhonePe, Paytm or another UPI app.</p><button class="pay-btn" id="payBtn">Choose UPI app & pay ₹49</button><p class="fine">UPI ID: nikhilgond8837@naviaxis</p><p class="fine">Payment is not verified automatically on this static website. Access will need manual verification.</p></div></div>
 <script>
 const $=id=>document.getElementById(id);
 let expression='',justCalculated=false,degrees=true,scientific=false,historyItems=[];
@@ -65,7 +65,7 @@ function calculate(){
  if(!Number.isFinite(answer))throw Error('Math error');
  const formatted=Number(answer.toPrecision(12)).toString();
  $('expression').textContent=pretty(expression)+' =';$('result').textContent=formatted;$('status').textContent='RESULT';
- historyItems.unshift({exp:expression,answer:formatted});historyItems=historyItems.slice(0,12);saveHistory();renderHistory();expression=formatted;justCalculated=true;
+ historyItems.unshift({exp:expression,answer:formatted});historyItems=historyItems.slice(0,12);saveHistory();renderHistory();expression=formatted;justCalculated=true;demoCount=Math.min(5,demoCount+1);localStorage.setItem('nikhil_demo_count',String(demoCount));if(demoCount>=5)showPaymentLock();
  }catch(err){$('result').textContent='Error';$('status').textContent='CHECK INPUT';}
 }
 function renderHistory(){const list=$('historyList');if(!historyItems.length){list.innerHTML='<div class="empty">Your calculations will appear here.</div>';return;}list.replaceChildren();historyItems.forEach((item,i)=>{const row=document.createElement('div');row.className='historyitem';const label=document.createElement('span');label.textContent=pretty(item.exp)+' = '+item.answer;const use=document.createElement('button');use.textContent='↶';use.title='Use this result';use.onclick=()=>{expression=item.answer;justCalculated=true;refresh();};row.append(label,use);list.append(row);});}
@@ -79,9 +79,11 @@ $('themeBtn').onclick=()=>{document.body.classList.toggle('light');$('themeBtn')
 $('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText($('result').textContent);$('status').textContent='COPIED';}catch(e){$('status').textContent='COPY UNAVAILABLE';}};
 $('clearHistory').onclick=()=>{historyItems=[];saveHistory();renderHistory();};
 document.addEventListener('keydown',e=>{if(/[0-9.()+\-*/%]/.test(e.key)&&e.key.length===1)add(e.key);else if(e.key==='Enter'){e.preventDefault();calculate();}else if(e.key==='Backspace')backspace();else if(e.key==='Escape')clearAll();});
-function payUPI(){const uri='upi://pay?pa='+encodeURIComponent('nikhilgond8837@naviaxis')+'&pn='+encodeURIComponent('Calculator Access')+'&am=49&cu=INR&tn='+encodeURIComponent('Calculator Access');location.href=uri;}
-$('payBtn').onclick=payUPI;$('demoBtn').onclick=()=>{localStorage.setItem('calculator_demo_unlocked','yes');$('lockScreen').classList.remove('show');};
-if(localStorage.getItem('calculator_demo_unlocked')==='yes')$('lockScreen').classList.remove('show');
+let demoCount=0;try{demoCount=Math.max(0,Math.min(5,Number(localStorage.getItem('nikhil_demo_count')||0)));}catch(e){}
+function showPaymentLock(){$('lockScreen').classList.add('show');}
+function payUPI(){const uri='upi://pay?pa='+encodeURIComponent('nikhilgond8837@naviaxis')+'&pn='+encodeURIComponent('Nikhil')+'&am=49&cu=INR&tn='+encodeURIComponent('Calculator Access');location.href=uri;}
+$('payBtn').onclick=payUPI;
+if(demoCount>=5)showPaymentLock();
 loadHistory();
 </script>
 </body>
