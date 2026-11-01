@@ -25,7 +25,7 @@
 ## प्रगति
 | विषय | स्थिति |
 |---|---|
-| Physics | अध्याय 1 का typed content पहले से वेबसाइट में है; वास्तविक handwritten A4 pages बनना बाकी |
+| Physics | अध्याय 1 का विस्तृत content draft `physics/chapter-01-electric-charges-and-fields.md` में जोड़ा; diagrams, handwritten A4 पेज और अंतिम सत्यापन बाकी |
 | Chemistry | बाकी |
 | Biology | बाकी |
 | Hindi (101) | बाकी |
