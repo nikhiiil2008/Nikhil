@@ -47,7 +47,7 @@ body.light{color-scheme:light;--bg:#eef0fa;--panel:#fff;--display:#f2f3fc;--text
 const $=id=>document.getElementById(id);
 let expression='',justCalculated=false,degrees=true,scientific=false,historyItems=[];
 const pretty=s=>s.replace(/\*/g,'×').replace(/\//g,'÷').replace(/-/g,'−');
-function refresh(){ $('expression').textContent=pretty(expression); $('result').textContent=expression||'0'; $('status').textContent=expression?'INPUT':'READY';}
+function refresh(){ $('expression').textContent=pretty(expression); $('result').textContent='0'; $('status').textContent=expression?'INPUT':'READY';}
 function add(v){if(justCalculated&&/[0-9.(πe]/.test(v))expression='';justCalculated=false;expression+=v;refresh();}
 function clearAll(){expression='';justCalculated=false;$('expression').textContent='';$('result').textContent='0';$('status').textContent='READY';}
 function backspace(){expression=expression.slice(0,-1);justCalculated=false;refresh();}
