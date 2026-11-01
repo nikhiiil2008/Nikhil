@@ -1,4 +1,4 @@
-const CACHE = "nikhil-calculator-v2";
+const CACHE = "nikhil-calculator-v3";
 
 const FILES = [
   "/Nikhil/",
