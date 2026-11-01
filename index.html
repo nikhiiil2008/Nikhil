@@ -1,343 +1,88 @@
-
 <!DOCTYPE html>
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Colorful Calculator</title>
-<meta name="theme-color" content="#764ba2">
+<meta name="theme-color" content="#101322">
+<meta name="description" content="A modern, colorful calculator with scientific mode and calculation history.">
 <link rel="manifest" href="/Nikhil/manifest.webmanifest">
 <link rel="icon" href="/Nikhil/icon.svg">
-
-
-.lock-screen{
- position:fixed;
- inset:0;
- z-index:9999;
- display:flex;
- justify-content:center;
- align-items:center;
- padding:20px;
- background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);
-}
-.lock-card{
- width:100%;
- max-width:350px;
- background:white;
- padding:28px 22px;
- border-radius:22px;
- text-align:center;
- box-shadow:0 15px 45px #25134b55;
-}
-.lock-card h2{color:#6639bb}
-.lock-card p{color:#555;line-height:1.5}
-.lock-card button{
- width:100%;
- padding:14px;
- margin-top:10px;
- border:0;
- border-radius:12px;
- font-size:16px;
- font-weight:bold;
- cursor:pointer;
-}
-.pay-btn{background:#16a34a;color:white}
-.demo-btn{background:#e9d5ff;color:#7028c8}<style>
-body{
- margin:0;padding:20px;min-height:100vh;
- display:flex;justify-content:center;align-items:center;
- font-family:Arial,sans-serif;
- background:linear-gradient(135deg,#667eea,#764ba2,#f093fb);
-}
- <div class="lock-screen" id="lockScreen">
- <div class="lock-card">
-  <h2>🔒 Calculator Locked</h2>
-  <p>Calculator का Demo Access पाने के लिए नीचे बटन दबाएँ।</p>
-  <h2>₹49</h2>
-
-  <button class="pay-btn" onclick="payUPI()">
-   Pay ₹49 with UPI
-  </button>
-
-  <button class="demo-btn" onclick="demoUnlock()">
-   Demo Unlock (Testing Only)
-  </button>
-
-  <p style="font-size:11px">
-   Demo unlock असली भुगतान की पुष्टि नहीं करता।
-  </p>
- </div>
-</div>
-.app{
- width:100%;max-width:390px;background:#fff;
- padding:20px;border-radius:25px;
- box-shadow:0 15px 45px #25134b55;
-}
-h2{text-align:center;color:#6639bb;margin:0 0 15px}
-.tabs{display:flex;gap:8px;margin-bottom:15px}
-.tabs button{
- flex:1;padding:12px;border:0;border-radius:12px;
- color:white;font-weight:bold;background:#999;
- cursor:pointer
-}
-.tabs button.active{background:linear-gradient(90deg,#4776e6,#8e54e9)}
-.display{
- background:#172554;color:white;padding:18px;
- border-radius:15px;text-align:right;margin-bottom:15px;
- min-height:95px;overflow:hidden;
-}
-#expression{font-size:16px;color:#a5b4fc;min-height:22px;word-break:break-all}
-#result{font-size:30px;font-weight:bold;word-break:break-all}
-.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}
-button.key{
- border:0;border-radius:13px;padding:16px 4px;
- font-size:18px;font-weight:bold;background:#eef0ff;
- color:#25234b;cursor:pointer;
- box-shadow:0 3px 5px #00000012;
-}
-button.key:active{transform:scale(.95)}
-.key.op{background:#e9d5ff;color:#7028c8}
-.key.fn{background:#dbeafe;color:#2458a8}
-.key.clear{background:#fecaca;color:#b91c1c}
-.key.equal{background:linear-gradient(135deg,#16a34a,#059669);color:white}
-.science{display:none;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:10px}
-.science button{font-size:14px;padding:12px 2px}
-.history{
- margin-top:16px;background:#f5f3ff;padding:12px;
- border-radius:12px;font-size:13px;color:#444;
-}
-.history h3{margin:0 0 8px;color:#6639bb}
-.history p{margin:5px 0;word-break:break-all}
-.history button{float:right;border:0;background:none;color:#dc2626;cursor:pointer}
-.footer{text-align:center;color:#888;font-size:11px;margin-top:15px}
-@media(max-width:360px){
- .app{padding:14px}
- button.key{padding:13px 2px}
-}
+<title>Nikhil Calculator</title>
+<style>
+:root{color-scheme:dark;--bg:#101322;--panel:#1a1e31;--display:#0c1020;--text:#f4f5ff;--muted:#9299b8;--key:#282d45;--key-hover:#363d5b;--accent:#9b8cff;--accent2:#6ee7d8;--danger:#ff8295;--line:#ffffff12}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:radial-gradient(ellipse at 10% 5%,#5e50bd55,transparent 35%),radial-gradient(ellipse at 95% 90%,#24b8a755,transparent 32%),var(--bg);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);transition:background .25s}
+body.light{color-scheme:light;--bg:#eef0fa;--panel:#fff;--display:#f2f3fc;--text:#20233a;--muted:#727894;--key:#edf0fa;--key-hover:#dfe4f5;--accent:#6c55db;--accent2:#138d83;--line:#24264b12;background:radial-gradient(ellipse at 10% 5%,#b8afff88,transparent 35%),radial-gradient(ellipse at 95% 90%,#9ce8dd88,transparent 32%),var(--bg)}
+.shell{width:min(100%,440px)}.app{padding:22px;border:1px solid var(--line);border-radius:30px;background:var(--panel);box-shadow:0 28px 80px #0003;backdrop-filter:blur(20px)}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}.brand{display:flex;gap:11px;align-items:center}.logo{display:grid;place-items:center;width:42px;height:42px;border-radius:14px;background:linear-gradient(135deg,#9381ff,#55d9c8);font-size:22px;color:#11152a}.brand strong{display:block;font-size:16px;letter-spacing:.2px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.tools{display:flex;gap:8px}.iconbtn{width:38px;height:38px;border:1px solid var(--line);border-radius:12px;background:var(--key);color:var(--text);font-size:17px;cursor:pointer}
+.modebar{display:flex;gap:5px;padding:5px;background:var(--display);border-radius:14px;margin-bottom:14px}.modebar button{flex:1;padding:10px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-weight:700;cursor:pointer}.modebar button.active{background:linear-gradient(120deg,#8e7bff,#55d9c8);color:#101322}
+.screen{min-height:128px;padding:18px 17px;background:var(--display);border:1px solid var(--line);border-radius:19px;display:flex;flex-direction:column;align-items:flex-end;justify-content:space-between;margin-bottom:14px;overflow:hidden}.screenline{width:100%;display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--muted);font-size:12px}.expression{width:100%;text-align:right;color:var(--muted);font-size:17px;min-height:25px;overflow-wrap:anywhere}.answer{font-size:clamp(30px,8vw,42px);font-weight:750;letter-spacing:-1.5px;max-width:100%;overflow-wrap:anywhere;line-height:1.2}.keys{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.key{min-height:57px;border:1px solid var(--line);border-radius:15px;background:var(--key);color:var(--text);font-size:19px;font-weight:650;cursor:pointer;transition:transform .12s,background .12s}.key:hover{background:var(--key-hover)}.key:active{transform:scale(.96)}.key.fn{color:var(--accent);font-size:15px}.key.op{background:#9481ff20;color:var(--accent);font-size:23px}.key.clear{color:var(--danger);background:#ff82951a}.key.equal{background:linear-gradient(135deg,#8e7bff,#55d9c8);color:#11152a;font-size:24px}.science{display:none;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:10px}.science.show{display:grid}.science .key{min-height:43px;font-size:14px}.history{margin-top:17px;border-top:1px solid var(--line);padding-top:14px}.historyhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}.historyhead strong{font-size:13px}.historyhead button,.historyitem button{border:0;background:transparent;color:var(--accent);font-size:12px;cursor:pointer}.historylist{max-height:130px;overflow:auto}.empty{color:var(--muted);font-size:12px;padding:8px 0}.historyitem{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--line);font-size:12px}.historyitem span{overflow-wrap:anywhere}.historyitem button{font-size:16px;flex-shrink:0}.foot{display:flex;justify-content:space-between;color:var(--muted);font-size:10px;margin-top:14px}.lock-screen{position:fixed;inset:0;z-index:10;display:none;place-items:center;padding:20px;background:#080a16d9;backdrop-filter:blur(12px)}.lock-screen.show{display:grid}.lock-card{width:min(100%,350px);padding:26px;border:1px solid #ffffff20;border-radius:24px;background:#1a1e31;text-align:center;box-shadow:0 20px 70px #0007}.lock-card h2{margin:0 0 8px}.lock-card p{color:#aab0ce;font-size:13px;line-height:1.5}.lock-card .price{font-size:34px;font-weight:800;margin:16px}.lock-card button{width:100%;padding:13px;margin:6px 0;border:0;border-radius:12px;font-weight:750;cursor:pointer}.pay-btn{background:linear-gradient(120deg,#8e7bff,#55d9c8);color:#11152a}.demo-btn{background:#343953;color:white}.lock-card .fine{font-size:10px}
+@media(max-width:380px){.app{padding:15px;border-radius:24px}.key{min-height:51px}.keys{gap:7px}.screen{padding:14px}}
 </style>
 </head>
 <body>
-<div class="app">
-<h2>🌈 MY CALCULATOR</h2>
-
-<div class="tabs">
-<button id="simpleTab" class="active" onclick="setMode('simple')">Simple</button>
-<button id="scienceTab" onclick="setMode('science')">Scientific</button>
-</div>
-
-<div class="display">
- <div id="expression">Ready</div>
- <div id="result">0</div>
-</div>
-
+<main class="shell">
+<section class="app" aria-label="Calculator">
+<header class="top"><div class="brand"><div class="logo">✳</div><div><strong>Nikhil Calculator</strong><small>Smart • Simple • Scientific</small></div></div><div class="tools"><button class="iconbtn" id="themeBtn" aria-label="Toggle theme" title="Toggle theme">☼</button><button class="iconbtn" id="copyBtn" aria-label="Copy result" title="Copy result">⧉</button></div></header>
+<div class="modebar"><button id="simpleTab" class="active">Basic</button><button id="scienceTab">Scientific</button><button id="angleBtn" title="Toggle degrees/radians">DEG</button></div>
+<div class="screen" aria-live="polite"><div class="screenline"><span id="status">READY</span><span>ANS</span></div><div class="expression" id="expression"></div><div class="answer" id="result">0</div></div>
 <div class="science" id="scienceKeys">
- <button class="key fn" onclick="add('sin(')">sin</button>
- <button class="key fn" onclick="add('cos(')">cos</button>
- <button class="key fn" onclick="add('tan(')">tan</button>
- <button class="key fn" onclick="add('log(')">log</button>
- <button class="key fn" onclick="add('ln(')">ln</button>
- <button class="key fn" onclick="add('sqrt(')">√</button>
- <button class="key fn" onclick="add('^2')">x²</button>
- <button class="key fn" onclick="add('^')">xʸ</button>
- <button class="key fn" onclick="add('π')">π</button>
- <button class="key fn" onclick="add('e')">e</button>
- <button class="key fn" onclick="add('(')">(</button>
- <button class="key fn" onclick="add(')')">)</button>
- <button class="key fn" onclick="add('!')">x!</button>
- <button class="key fn" onclick="add('abs(')">|x|</button>
- <button class="key fn" onclick="add('1/(')">1/x</button>
- <button class="key fn" onclick="add('^3')">x³</button>
+<button class="key fn" data-value="sin(">sin</button><button class="key fn" data-value="cos(">cos</button><button class="key fn" data-value="tan(">tan</button><button class="key fn" data-value="log(">log</button>
+<button class="key fn" data-value="ln(">ln</button><button class="key fn" data-value="sqrt(">√</button><button class="key fn" data-value="^2">x²</button><button class="key fn" data-value="^">xʸ</button>
+<button class="key fn" data-value="π">π</button><button class="key fn" data-value="e">e</button><button class="key fn" data-value="(">(</button><button class="key fn" data-value=")">)</button>
+<button class="key fn" data-value="!">x!</button><button class="key fn" data-value="abs(">|x|</button><button class="key fn" data-value="^3">x³</button><button class="key fn" data-value="÷">÷</button>
 </div>
-
-<div class="keys">
- <button class="key clear" onclick="clearAll()">AC</button>
- <button class="key clear" onclick="backspace()">⌫</button>
- <button class="key op" onclick="add('%')">%</button>
- <button class="key op" onclick="add('/')">÷</button>
-
- <button class="key" onclick="add('7')">7</button>
- <button class="key" onclick="add('8')">8</button>
- <button class="key" onclick="add('9')">9</button>
- <button class="key op" onclick="add('*')">×</button>
-
- <button class="key" onclick="add('4')">4</button>
- <button class="key" onclick="add('5')">5</button>
- <button class="key" onclick="add('6')">6</button>
- <button class="key op" onclick="add('-')">−</button>
-
- <button class="key" onclick="add('1')">1</button>
- <button class="key" onclick="add('2')">2</button>
- <button class="key" onclick="add('3')">3</button>
- <button class="key op" onclick="add('+')">+</button>
-
- <button class="key" onclick="add('±')">±</button>
- <button class="key" onclick="add('0')">0</button>
- <button class="key" onclick="add('.')">.</button>
- <button class="key equal" onclick="calculate()">=</button>
+<div class="keys" id="mainKeys">
+<button class="key clear" data-action="clear">AC</button><button class="key clear" data-action="back">⌫</button><button class="key fn" data-value="%">%</button><button class="key op" data-value="÷">÷</button>
+<button class="key" data-value="7">7</button><button class="key" data-value="8">8</button><button class="key" data-value="9">9</button><button class="key op" data-value="×">×</button>
+<button class="key" data-value="4">4</button><button class="key" data-value="5">5</button><button class="key" data-value="6">6</button><button class="key op" data-value="−">−</button>
+<button class="key" data-value="1">1</button><button class="key" data-value="2">2</button><button class="key" data-value="3">3</button><button class="key op" data-value="+">+</button>
+<button class="key fn" data-action="sign">±</button><button class="key" data-value="0">0</button><button class="key" data-value=".">.</button><button class="key equal" data-action="equals">=</button>
 </div>
-
-<div class="history">
- <h3>📜 Calculation History <button onclick="clearHistory()">Clear</button></h3>
- <div id="historyList">No calculations yet</div>
-</div>
-<div class="footer">Made with ❤️ | My Calculator</div>
-</div>
-
+<section class="history"><div class="historyhead"><strong>◷ Recent calculations</strong><button id="clearHistory">Clear all</button></div><div class="historylist" id="historyList"><div class="empty">Your calculations will appear here.</div></div></section>
+<footer class="foot"><span>Made with care ✦</span><span>Keyboard supported</span></footer>
+</section>
+</main>
+<div class="lock-screen" id="lockScreen"><div class="lock-card"><h2>🔒 Calculator Access</h2><p>Unlock the calculator using the available options.</p><div class="price">₹49</div><button class="pay-btn" id="payBtn">Pay ₹49 with UPI</button><button class="demo-btn" id="demoBtn">Try demo</button><p class="fine">Demo access is for testing only and does not confirm a real payment.</p></div></div>
 <script>
-let expression = '';
-let justCalculated = false;
-let historyItems = [];
-let mode = 'simple';
-let degrees = true;
-
-const resultEl = document.getElementById('result');
-const expressionEl = document.getElementById('expression');
-
-function setMode(m){
- mode=m;
- document.getElementById('scienceKeys').style.display =
-   m==='science'?'grid':'none';
- document.getElementById('simpleTab').classList.toggle('active',m==='simple');
- document.getElementById('scienceTab').classList.toggle('active',m==='science');
-}
-
-function add(value){
- if(justCalculated && /[0-9.(πe]/.test(value)){
-   expression='';
- }
- justCalculated=false;
- if(value==='±'){
-   expression = expression.startsWith('-') ?
-    expression.slice(1) : '-'+expression;
- }else{
-   expression+=value;
- }
- expressionEl.textContent=expression;
- resultEl.textContent=expression || '0';
-}
-
-function clearAll(){
- expression='';
- justCalculated=false;
- expressionEl.textContent='Ready';
- resultEl.textContent='0';
-}
-
-function backspace(){
- expression=expression.slice(0,-1);
- justCalculated=false;
- expressionEl.textContent=expression || 'Ready';
- resultEl.textContent=expression || '0';
-}
-
-function factorial(n){
- if(n<0 || !Number.isInteger(n) || n>170)
-   throw Error('Invalid factorial');
- let v=1;
- for(let i=2;i<=n;i++)v*=i;
- return v;
-}
-
+const $=id=>document.getElementById(id);
+let expression='',justCalculated=false,degrees=true,scientific=false,historyItems=[];
+const pretty=s=>s.replace(/\*/g,'×').replace(/\//g,'÷').replace(/-/g,'−');
+function refresh(){ $('expression').textContent=pretty(expression); $('result').textContent=expression||'0'; $('status').textContent=expression?'INPUT':'READY';}
+function add(v){if(justCalculated&&/[0-9.(πe]/.test(v))expression='';justCalculated=false;expression+=v;refresh();}
+function clearAll(){expression='';justCalculated=false;$('expression').textContent='';$('result').textContent='0';$('status').textContent='READY';}
+function backspace(){expression=expression.slice(0,-1);justCalculated=false;refresh();}
+function setMode(s){scientific=s;$('scienceKeys').classList.toggle('show',s);$('simpleTab').classList.toggle('active',!s);$('scienceTab').classList.toggle('active',s);}
+function factorial(n){if(n<0||!Number.isInteger(n)||n>170)throw Error('Factorial domain');let x=1;for(let i=2;i<=n;i++)x*=i;return x;}
 function calculate(){
  if(!expression)return;
  try{
-   let exp=expression
-    .replace(/π/g,'Math.PI')
-    .replace(/\be\b/g,'Math.E')
-    .replace(/sqrt\(/g,'Math.sqrt(')
-    .replace(/abs\(/g,'Math.abs(')
-    .replace(/sin\(/g,'Math.sin(')
-    .replace(/cos\(/g,'Math.cos(')
-    .replace(/tan\(/g,'Math.tan(')
-    .replace(/log\(/g,'Math.log10(')
-    .replace(/ln\(/g,'Math.log(');
-
-   if(degrees){
-     exp=exp
-      .replace(/Math\.sin\(/g,'Math.sin((Math.PI/180)*')
-      .replace(/Math\.cos\(/g,'Math.cos((Math.PI/180)*')
-      .replace(/Math\.tan\(/g,'Math.tan((Math.PI/180)*');
-   }
-
-   exp=exp.replace(/\^/g,'**');
-   exp=exp.replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
-
-   // Factorial
-   exp=exp.replace(/(\d+(?:\.\d+)?)!/g,'factorial($1)');
-
-   if(!/^[0-9+\-*/().,%\sA-Za-z_*]+$/.test(exp))
-     throw Error('Invalid expression');
-
-   if(/(?:Math\.(?!PI|E|sqrt|abs|sin|cos|tan|log10|log)|constructor|window|document|alert|eval)/i.test(exp))
-     throw Error('Invalid expression');
-
-   const answer=Function('factorial',
-      '"use strict"; return ('+exp+')')(factorial);
-
-   if(!Number.isFinite(answer))throw Error('Math error');
-
-   const formatted=Number(answer.toPrecision(12)).toString();
-   expressionEl.textContent=expression+' =';
-   resultEl.textContent=formatted;
-
-   historyItems.unshift(expression+' = '+formatted);
-   historyItems=historyItems.slice(0,10);
-   renderHistory();
-
-   expression=formatted;
-   justCalculated=true;
- }catch(e){
-   resultEl.textContent='Error';
- }
+ let exp=expression.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-').replace(/π/g,'Math.PI').replace(/\be\b/g,'Math.E');
+ exp=exp.replace(/sqrt\(/g,'Math.sqrt(').replace(/abs\(/g,'Math.abs(').replace(/sin\(/g,'Math.sin(').replace(/cos\(/g,'Math.cos(').replace(/tan\(/g,'Math.tan(').replace(/log\(/g,'Math.log10(').replace(/ln\(/g,'Math.log(');
+ if(degrees)exp=exp.replace(/Math\.sin\(/g,'Math.sin(Math.PI/180*').replace(/Math\.cos\(/g,'Math.cos(Math.PI/180*').replace(/Math\.tan\(/g,'Math.tan(Math.PI/180*');
+ exp=exp.replace(/\^/g,'**').replace(/(\d+(?:\.\d+)?)%/g,'($1/100)').replace(/(\d+(?:\.\d+)?)!/g,'factorial($1)');
+ if(!/^[0-9+\-*/().,%\sA-Za-z_*]+$/.test(exp)||/(?:constructor|window|document|alert|eval|Function|Math\.(?!PI|E|sqrt|abs|sin|cos|tan|log10|log))/i.test(exp))throw Error('Invalid');
+ const answer=Function('factorial','"use strict";return ('+exp+')')(factorial);
+ if(!Number.isFinite(answer))throw Error('Math error');
+ const formatted=Number(answer.toPrecision(12)).toString();
+ $('expression').textContent=pretty(expression)+' =';$('result').textContent=formatted;$('status').textContent='RESULT';
+ historyItems.unshift({exp:expression,answer:formatted});historyItems=historyItems.slice(0,12);saveHistory();renderHistory();expression=formatted;justCalculated=true;
+ }catch(err){$('result').textContent='Error';$('status').textContent='CHECK INPUT';}
 }
-
-function renderHistory(){
- document.getElementById('historyList').innerHTML=
- historyItems.length
- ?historyItems.map(x=>'<p>'+escapeHTML(x)+'</p>').join('')
- : 'No calculations yet';
-}
-
-function escapeHTML(s){
- return s.replace(/[&<>"']/g,c=>({
- '&':'&amp;','<':'&lt;','>':'&gt;',
- '"':'&quot;',"'":'&#39;'
- }[c]));
-}
-
-function clearHistory(){
- historyItems=[];
- renderHistory();
-}
-
-document.addEventListener('keydown',e=>{
- if(/[0-9.()+\-*/%]/.test(e.key) && e.key.length===1){
-   add(e.key);
- }else if(e.key==='Enter'){
-   e.preventDefault();calculate();
- }else if(e.key==='Backspace'){
-   backspace();
- }else if(e.key==='Escape'){
-   clearAll();
- }
-});function payUPI(){
- const upi = 'nikhilgond8837@naviaxis';
- const link = 'upi://pay?pa=' + encodeURIComponent(upi) +
-  '&pn=' + encodeURIComponent('Calculator Access') +
-  '&am=49&cu=INR' +
-  '&tn=' + encodeURIComponent('Calculator Access');
-
- window.location.href = link;
-}
-
-function demoUnlock(){
- localStorage.setItem('calculator_demo_unlocked','yes');
- document.getElementById('lockScreen').style.display='none';
-}
-
-if(localStorage.getItem('calculator_demo_unlocked')==='yes'){
- document.getElementById('lockScreen').style.display='none';
- }
+function renderHistory(){const list=$('historyList');if(!historyItems.length){list.innerHTML='<div class="empty">Your calculations will appear here.</div>';return;}list.replaceChildren();historyItems.forEach((item,i)=>{const row=document.createElement('div');row.className='historyitem';const label=document.createElement('span');label.textContent=pretty(item.exp)+' = '+item.answer;const use=document.createElement('button');use.textContent='↶';use.title='Use this result';use.onclick=()=>{expression=item.answer;justCalculated=true;refresh();};row.append(label,use);list.append(row);});}
+function saveHistory(){try{localStorage.setItem('nikhil_calc_history',JSON.stringify(historyItems));}catch(e){}}
+function loadHistory(){try{const saved=JSON.parse(localStorage.getItem('nikhil_calc_history')||'[]');if(Array.isArray(saved))historyItems=saved.slice(0,12);}catch(e){historyItems=[];}renderHistory();}
+$('mainKeys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.value)add(b.dataset.value);else if(b.dataset.action==='clear')clearAll();else if(b.dataset.action==='back')backspace();else if(b.dataset.action==='equals')calculate();else if(b.dataset.action==='sign'){if(expression)expression=expression.startsWith('-')?expression.slice(1):'-'+expression;else expression='-';refresh();}});
+$('scienceKeys').addEventListener('click',e=>{const b=e.target.closest('button');if(b?.dataset.value)add(b.dataset.value);});
+$('simpleTab').onclick=()=>setMode(false);$('scienceTab').onclick=()=>setMode(true);
+$('angleBtn').onclick=()=>{degrees=!degrees;$('angleBtn').textContent=degrees?'DEG':'RAD';};
+$('themeBtn').onclick=()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾':'☼';};
+$('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText($('result').textContent);$('status').textContent='COPIED';}catch(e){$('status').textContent='COPY UNAVAILABLE';}};
+$('clearHistory').onclick=()=>{historyItems=[];saveHistory();renderHistory();};
+document.addEventListener('keydown',e=>{if(/[0-9.()+\-*/%]/.test(e.key)&&e.key.length===1)add(e.key);else if(e.key==='Enter'){e.preventDefault();calculate();}else if(e.key==='Backspace')backspace();else if(e.key==='Escape')clearAll();});
+function payUPI(){const uri='upi://pay?pa='+encodeURIComponent('nikhilgond8837@naviaxis')+'&pn='+encodeURIComponent('Calculator Access')+'&am=49&cu=INR&tn='+encodeURIComponent('Calculator Access');location.href=uri;}
+$('payBtn').onclick=payUPI;$('demoBtn').onclick=()=>{localStorage.setItem('calculator_demo_unlocked','yes');$('lockScreen').classList.remove('show');};
+if(localStorage.getItem('calculator_demo_unlocked')==='yes')$('lockScreen').classList.remove('show');
+loadHistory();
 </script>
 </body>
 </html>
