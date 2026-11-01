@@ -42,7 +42,7 @@ body.light{color-scheme:light;--bg:#eef0fa;--panel:#fff;--display:#f2f3fc;--text
 <footer class="foot"><span>Made with care ✦</span><span>Keyboard supported</span></footer>
 </section>
 </main>
-<div class="lock-screen" id="lockScreen"><div class="lock-card"><h2>🔒 Free demo complete</h2><p>You have used your 5 free calculations.</p><div class="price">₹49</div><p>Pay using Google Pay, PhonePe, Paytm or another UPI app.</p><button class="pay-btn" id="payBtn">Choose UPI app & pay ₹49</button><p class="fine">UPI ID: nikhilgond8837@naviaxis</p><p class="fine">Payment is not verified automatically on this static website. Access will need manual verification.</p></div></div>
+<div class="lock-screen" id="lockScreen"><div class="lock-card"><h2>🔒 Scientific Calculator</h2><p>Scientific mode unlock karne ke liye one-time payment karein.</p><div class="price">₹5</div><p>Google Pay, PhonePe, Paytm ya kisi bhi UPI app se payment karein.</p><button class="pay-btn" id="payBtn">Pay ₹5 with UPI</button><p class="fine">UPI ID: nikhilgond8837@naviaxis</p><button class="demo-btn" id="closeLockBtn">Back to Basic Calculator</button><p class="fine">Payment verification automatic nahi hai. Payment verify hone ke baad hi Scientific mode unlock hoga.</p></div></div>
 <script>
 const $=id=>document.getElementById(id);
 let expression='',justCalculated=false,degrees=true,scientific=false,historyItems=[];
@@ -65,7 +65,7 @@ function calculate(){
  if(!Number.isFinite(answer))throw Error('Math error');
  const formatted=Number(answer.toPrecision(12)).toString();
  $('expression').textContent=pretty(expression)+' =';$('result').textContent=formatted;$('status').textContent='RESULT';
- historyItems.unshift({exp:expression,answer:formatted});historyItems=historyItems.slice(0,12);saveHistory();renderHistory();expression=formatted;justCalculated=true;demoCount=Math.min(5,demoCount+1);localStorage.setItem('nikhil_demo_count',String(demoCount));if(demoCount>=5)showPaymentLock();
+ historyItems.unshift({exp:expression,answer:formatted});historyItems=historyItems.slice(0,12);saveHistory();renderHistory();expression=formatted;justCalculated=true;
  }catch(err){$('result').textContent='Error';$('status').textContent='CHECK INPUT';}
 }
 function renderHistory(){const list=$('historyList');if(!historyItems.length){list.innerHTML='<div class="empty">Your calculations will appear here.</div>';return;}list.replaceChildren();historyItems.forEach((item,i)=>{const row=document.createElement('div');row.className='historyitem';const label=document.createElement('span');label.textContent=pretty(item.exp)+' = '+item.answer;const use=document.createElement('button');use.textContent='↶';use.title='Use this result';use.onclick=()=>{expression=item.answer;justCalculated=true;refresh();};row.append(label,use);list.append(row);});}
@@ -73,17 +73,18 @@ function saveHistory(){try{localStorage.setItem('nikhil_calc_history',JSON.strin
 function loadHistory(){try{const saved=JSON.parse(localStorage.getItem('nikhil_calc_history')||'[]');if(Array.isArray(saved))historyItems=saved.slice(0,12);}catch(e){historyItems=[];}renderHistory();}
 $('mainKeys').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.value)add(b.dataset.value);else if(b.dataset.action==='clear')clearAll();else if(b.dataset.action==='back')backspace();else if(b.dataset.action==='equals')calculate();else if(b.dataset.action==='sign'){if(expression)expression=expression.startsWith('-')?expression.slice(1):'-'+expression;else expression='-';refresh();}});
 $('scienceKeys').addEventListener('click',e=>{const b=e.target.closest('button');if(b?.dataset.value)add(b.dataset.value);});
-$('simpleTab').onclick=()=>setMode(false);$('scienceTab').onclick=()=>setMode(true);
+$('simpleTab').onclick=()=>{hidePaymentLock();setMode(false);};$('scienceTab').onclick=()=>{showPaymentLock();};
 $('angleBtn').onclick=()=>{degrees=!degrees;$('angleBtn').textContent=degrees?'DEG':'RAD';};
 $('themeBtn').onclick=()=>{document.body.classList.toggle('light');$('themeBtn').textContent=document.body.classList.contains('light')?'☾':'☼';};
 $('copyBtn').onclick=async()=>{try{await navigator.clipboard.writeText($('result').textContent);$('status').textContent='COPIED';}catch(e){$('status').textContent='COPY UNAVAILABLE';}};
 $('clearHistory').onclick=()=>{historyItems=[];saveHistory();renderHistory();};
 document.addEventListener('keydown',e=>{if(/[0-9.()+\-*/%]/.test(e.key)&&e.key.length===1)add(e.key);else if(e.key==='Enter'){e.preventDefault();calculate();}else if(e.key==='Backspace')backspace();else if(e.key==='Escape')clearAll();});
-let demoCount=0;try{demoCount=Math.max(0,Math.min(5,Number(localStorage.getItem('nikhil_demo_count')||0)));}catch(e){}
 function showPaymentLock(){$('lockScreen').classList.add('show');}
-function payUPI(){const uri='upi://pay?pa='+encodeURIComponent('nikhilgond8837@naviaxis')+'&pn='+encodeURIComponent('Nikhil')+'&am=49&cu=INR&tn='+encodeURIComponent('Calculator Access');location.href=uri;}
+function hidePaymentLock(){$('lockScreen').classList.remove('show');}
+function payUPI(){const uri='upi://pay?pa='+encodeURIComponent('nikhilgond8837@naviaxis')+'&pn='+encodeURIComponent('Nikhil')+'&am=5&cu=INR&tn='+encodeURIComponent('Scientific Calculator Access');location.href=uri;}
 $('payBtn').onclick=payUPI;
-if(demoCount>=5)showPaymentLock();
+$('closeLockBtn').onclick=hidePaymentLock;
+
 loadHistory();
 </script>
 </body>
