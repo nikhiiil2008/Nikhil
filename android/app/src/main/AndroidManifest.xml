@@ -4,6 +4,7 @@
     <application
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         android:label="Nikhil Calculator"
+        android:icon="@drawable/ic_launcher"
         android:usesCleartextTraffic="false"
         android:hardwareAccelerated="true">
         <activity
