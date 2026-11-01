@@ -21,7 +21,8 @@ main{max-width:850px;margin:auto;padding:16px 14px 40px}.section-title{font-size
 </style>
 </head>
 <body>
-<header><div class="top"><div class="brand">STUDYSPRINT • LEARN SMART</div><div class="hero">Class 12 Science, ab revision hoga easy.</div><div class="sub">UP Board • हिंदी + English • Notes + Instant MCQ Practice</div><div class="pillrow"><span class="pill">⚡ Fast quiz</span><span class="pill">📚 Chapter notes</span><span class="pill">📱 Mobile friendly</span></div></div></header>
+<header><div class="top"><div class="brand">STUDYSPRINT • LEARN SMART</div><div class="hero">Class 12 Science, ab revision hoga easy.</div><div class="sub">UP Board • हिंदी + English • Notes + Instant MCQ Practice</div><div class="pillrow"><span class="pill">⚡ Fast quiz</span><span class="pill">📚 Chapter notes</span><span class="pill">📱 Mobile friendly</span></div>
+<div style="margin-top:14px"><button id="shareApp" style="border:0;border-radius:11px;padding:10px 15px;background:white;color:#102b52;font-weight:800">↗ Share StudySprint</button><span id="shareStatus" style="font-size:12px;margin-left:9px" aria-live="polite"></span></div></div></header>
 <main>
 <div class="section-title">अपना विषय चुनें / Choose subject</div>
 <div class="subjects" id="subjects">
@@ -102,6 +103,7 @@ function restartQuiz(){index=0;score=0;$("question").classList.remove("hidden");
 document.querySelectorAll(".subject").forEach(b=>b.addEventListener("click",()=>selectSubject(b.dataset.sub)));
 $("notesTab").addEventListener("click",()=>switchMode("notes"));$("quizTab").addEventListener("click",()=>switchMode("quiz"));$("next").addEventListener("click",nextQuestion);$("restart").addEventListener("click",restartQuiz);
 renderNotes();renderQuiz();
+$("shareApp").addEventListener("click",async()=>{const data={title:"StudySprint — Class 12 Science",text:"Class 12 UP Board Science ke bilingual notes aur instant MCQ quiz try karo:",url:location.href};try{if(navigator.share){await navigator.share(data);$("shareStatus").textContent="Shared!";}else if(navigator.clipboard){await navigator.clipboard.writeText(data.text+" "+data.url);$("shareStatus").textContent="Link copied!";}else{$("shareStatus").textContent="Copy this link: "+location.href;}}catch(e){if(e.name!=="AbortError")$("shareStatus").textContent="Share unavailable. Copy the page link.";}});
 if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}))}
 </script>
 </body></html>
