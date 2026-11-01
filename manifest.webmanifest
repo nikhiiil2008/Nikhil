@@ -1,14 +1,13 @@
-
 {
-  "name": "Nikhil's Calculator",
-  "short_name": "Calculator",
-  "description": "Simple and Scientific Calculator",
+  "name": "StudySprint 12th - UP Board",
+  "short_name": "StudySprint",
+  "description": "कक्षा 12 UP Board के नोट्स, क्विज और मॉक टेस्ट",
   "start_url": "/Nikhil/",
   "scope": "/Nikhil/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#667eea",
-  "theme_color": "#764ba2",
+  "background_color": "#0b1020",
+  "theme_color": "#10172b",
   "icons": [
     {
       "src": "icon.svg",
